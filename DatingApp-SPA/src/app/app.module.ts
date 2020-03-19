@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { BsDropdownModule } from 'ngx-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
+import { JwtModule } from '@auth0/angular-jwt';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -17,8 +18,13 @@ import { MemberListsComponent } from './members/member-lists/member-lists.compon
 import { MessagesComponent } from './messages/messages.component';
 import { appRoutes } from './routes';
 import { MemberCardComponent } from './members/member-card/member-card.component';
+import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 
 
+
+export function tokenGetter() {
+   return localStorage.getItem('token');
+ }
 
 @NgModule({
    declarations: [
@@ -29,7 +35,8 @@ import { MemberCardComponent } from './members/member-card/member-card.component
       ListsComponent,
       MemberListsComponent,
       MessagesComponent,
-      MemberCardComponent
+      MemberCardComponent,
+      MemberDetailComponent
    ],
    imports: [
       BrowserModule,
@@ -37,7 +44,14 @@ import { MemberCardComponent } from './members/member-card/member-card.component
       FormsModule,
       BsDropdownModule.forRoot(),
       BrowserAnimationsModule,
-      RouterModule.forRoot(appRoutes)
+      RouterModule.forRoot(appRoutes),
+      JwtModule.forRoot({
+         config: {
+           tokenGetter: tokenGetter,
+           whitelistedDomains: ['localhost:5000'],
+           blacklistedRoutes: ['localhost:5000/auth']
+         }
+       })
    ],
    providers: [
       AuthService,
