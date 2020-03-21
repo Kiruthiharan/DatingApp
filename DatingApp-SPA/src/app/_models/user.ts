@@ -11,7 +11,7 @@ export interface User {
     age: number;
     created: Date;
     lastActive: Date;
-    interest?: string;
+    interests?: string;
     introduction?: string;
     lookingFor?: string;
     photos?: Photo[];
