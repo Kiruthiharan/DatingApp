@@ -52,6 +52,7 @@ namespace DatingApp.API
                     };
                 });
             services.AddAutoMapper(typeof(DatingRepository).Assembly);
+            services.AddScoped<LogUserActivity>();
 
         }
 

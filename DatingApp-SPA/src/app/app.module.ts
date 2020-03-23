@@ -62,7 +62,8 @@ export function tokenGetter() {
        }),
        TabsModule.forRoot(),
        ReactiveFormsModule,
-       BsDatepickerModule.forRoot()
+       BsDatepickerModule.forRoot(),
+       
    ],
    providers: [
       AuthService,
