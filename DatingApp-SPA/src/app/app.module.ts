@@ -7,6 +7,7 @@ import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { JwtModule } from '@auth0/angular-jwt';
+import { GalleryModule } from '@ngx-gallery/core';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -52,6 +53,7 @@ export function tokenGetter() {
       FormsModule,
       BsDropdownModule.forRoot(),
       BrowserAnimationsModule,
+      GalleryModule,
       RouterModule.forRoot(appRoutes),
       JwtModule.forRoot({
          config: {
@@ -63,7 +65,6 @@ export function tokenGetter() {
        TabsModule.forRoot(),
        ReactiveFormsModule,
        BsDatepickerModule.forRoot(),
-       
    ],
    providers: [
       AuthService,

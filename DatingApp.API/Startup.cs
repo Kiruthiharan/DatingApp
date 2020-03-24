@@ -53,6 +53,7 @@ namespace DatingApp.API
                 });
             services.AddAutoMapper(typeof(DatingRepository).Assembly);
             services.AddScoped<LogUserActivity>();
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
 
         }
 
