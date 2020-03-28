@@ -11,6 +11,9 @@ import { Pagination } from 'src/app/_models/Pagination';
 })
 export class MemberListsComponent implements OnInit {
   users: User[];
+  user: User = JSON.parse(localStorage.getItem('user'));
+  genderList = [{value: 'male', display: 'Males'}, {value: 'female', display: 'Females'}];
+  userParams: any = {};
   pageNumber = 1;
   pageSize = 5;
   pagination: Pagination;
@@ -18,11 +21,15 @@ export class MemberListsComponent implements OnInit {
   constructor(private userService: UserService, private alertify: AlertifyService) { }
 
   ngOnInit() {
+    this.userParams.gender = this.user.gender === 'female' ? 'male' : 'female';
+    this.userParams.minAge = 18;
+    this.userParams.maxAge = 99;
+    this.userParams.orderBy = 'lastActive';
     this.loadUsers();
   }
 
   loadUsers() {
-    this.userService.getUsers(this.pageNumber, this.pageSize).subscribe((users) =>{
+    this.userService.getUsers(this.pageNumber, this.pageSize, this.userParams).subscribe((users) =>{
       this.users = users.result;
       this.pagination = users.pagination;
     }, error => {
@@ -32,6 +39,14 @@ export class MemberListsComponent implements OnInit {
 
   pageChanged(event: any): void {
     this.pagination.currentPage = event.page;
+    this.loadUsers();
+  }
+
+  resetFilters() {
+    this.userParams.gender = this.user.gender === 'female' ? 'male' : 'female';
+    this.userParams.minAge = 18;
+    this.userParams.maxAge = 99;
+    this.userParams.orderBy = 'lastActive';
     this.loadUsers();
   }
 }
