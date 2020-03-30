@@ -4,6 +4,7 @@ import { AlertifyService } from 'src/app/_services/alertify.service';
 import { User } from 'src/app/_models/user';
 import { ActivatedRoute } from '@angular/router';
 import { GalleryItem, ImageItem } from '@ngx-gallery/core';
+import { TabsetComponent } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-member-detail',
@@ -11,7 +12,7 @@ import { GalleryItem, ImageItem } from '@ngx-gallery/core';
   styleUrls: ['./member-detail.component.css']
 })
 export class MemberDetailComponent implements OnInit {
-
+  @ViewChild('memberTabs', {static : true})memberTabs: TabsetComponent;
   user: User;
   images: GalleryItem[];
 
@@ -20,6 +21,11 @@ export class MemberDetailComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.user = data.user;
+    });
+
+    this.route.queryParams.subscribe(params => {
+      const selectedTab = params.tab;
+      this.memberTabs.tabs[selectedTab > 0 ? selectedTab : 0].active = true;
     });
 
     this.images = this.getImages();
@@ -41,6 +47,8 @@ export class MemberDetailComponent implements OnInit {
     });
   }*/
 
-  
+  selectTab(tabId: number) {
+    this.memberTabs.tabs[tabId].active = true;
+  }
 
 }
