@@ -84,6 +84,7 @@ namespace DatingApp.API.Controllers
             messageForCreationDto.SenderId=userId;
 
             var recipient = await _repo.GetUser(messageForCreationDto.RecipientId);
+            var sender = await _repo.GetUser(userId);
 
             if(recipient == null)
                 return BadRequest("Could not find the user");
@@ -96,7 +97,7 @@ namespace DatingApp.API.Controllers
 
             if(await _repo.SaveAll()){
                 //return CreatedAtRoute(nameof(GetMessage), new {id = message.Id}, messageToReturn);
-                return Ok();
+                return Ok(messageToReturn);
             }
 
             throw new Exception("Creating the message failed on save");
