@@ -88,7 +88,8 @@ namespace DatingApp.API.Controllers
             if(await _repository.SaveAll())
             {
                 var photoToReturn = _mapper.Map<PhotoForReturnDto>(photo);
-                return CreatedAtRoute("GetPhoto", new { id = photo.Id}, photoToReturn);
+                //return CreatedAtRoute("GetPhoto", new { id = photo.Id}, photoToReturn);
+                Ok(photoToReturn);
             }
 
             return BadRequest("Couldn't upload photo");
